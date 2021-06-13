@@ -1,0 +1,1301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'Consolas'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">130 1607</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">148</span><span style=" color:#00ff00;">]:</span> maxstrlen = max(l) + 5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> X_train_pad = sequence.pad_sequences(X_train_encoded, maxlen=100)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> X_test_pad = sequence.pad_sequences(X_test_encoded, maxlen=100)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">149</span><span style=" color:#00ff00;">]:</span> model = Sequential()</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Embedding(len(vocabint), 300, input_length=100))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(64, return_sequences=True,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dropout(0.25))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(16, return_sequences=True,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dropout(0.25))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(32, return_sequences=False,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(len(languages), activation='softmax'))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">150</span><span style=" color:#00ff00;">]:</span> model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> print(model.summary())</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Layer (type)                 Output Shape              Param #   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">embedding_15 (Embedding)     (None, 100, 300)          8830200   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_36 (LSTM)               (None, 100, 64)           93440     </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dropout_28 (Dropout)         (None, 100, 64)           0         </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_37 (LSTM)               (None, 100, 16)           5184      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dropout_29 (Dropout)         (None, 100, 16)           0         </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_38 (LSTM)               (None, 32)                6272      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_12 (Dense)             (None, 5)                 165       </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Total params: 8,935,261</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Trainable params: 8,935,261</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Non-trainable params: 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">None</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">151</span><span style=" color:#00ff00;">]:</span> hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.2 ,epochs=5, batch_size=128)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Train on 3000 samples, validate on 750 samples</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 1/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 34s 11ms/step - loss: 0.4708 - acc: 0.8000 - val_loss: 0.3891 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 2/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 26s 9ms/step - loss: 0.2968 - acc: 0.8617 - val_loss: 0.1978 - val_acc: 0.9432</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 3/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 26s 9ms/step - loss: 0.1102 - acc: 0.9911 - val_loss: 0.0670 - val_acc: 0.9933</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 4/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 27s 9ms/step - loss: 0.0393 - acc: 0.9985 - val_loss: 0.0348 - val_acc: 0.9960</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 5/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2944/3000 [============================&gt;.] - ETA: 0s - loss: 0.0175 - acc: 0.9999 Traceback <span style=" color:#00ffff;">(most recent call last)</span>:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;&lt;ipython-input-151-548fa72433d1&gt;&quot;</span>, line <span style=" color:#006400;">1</span>, in <span style=" color:#9400d3;">&lt;module&gt;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.2 ,epochs=5, batch_size=128)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\engine\training.py&quot;</span>, line <span style=" color:#006400;">1039</span>, in <span style=" color:#9400d3;">fit</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    validation_steps=validation_steps)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\engine\training_arrays.py&quot;</span>, line <span style=" color:#006400;">212</span>, in <span style=" color:#9400d3;">fit_loop</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    verbose=0)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\engine\training_arrays.py&quot;</span>, line <span style=" color:#006400;">392</span>, in <span style=" color:#9400d3;">test_loop</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    batch_outs = f(ins_batch)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\backend\tensorflow_backend.py&quot;</span>, line <span style=" color:#006400;">2715</span>, in <span style=" color:#9400d3;">__call__</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    return self._call(inputs)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\backend\tensorflow_backend.py&quot;</span>, line <span style=" color:#006400;">2675</span>, in <span style=" color:#9400d3;">_call</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    fetched = self._callable_fn(*array_vals)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ffff;">  File </span><span style=" color:#00ff00;">&quot;D:\AnacondaWS\lib\site-packages\tensorflow_core\python\client\session.py&quot;</span><span style=" color:#00ffff;">, line </span><span style=" color:#00ff00;">1472</span><span style=" color:#00ffff;">, in </span><span style=" color:#ff00ff;">__call__</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ffff00;">    run_metadata_ptr)</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ff0000;">KeyboardInterrupt</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">152</span><span style=" color:#00ff00;">]:</span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">152</span><span style=" color:#00ff00;">]:</span> del model</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">153</span><span style=" color:#00ff00;">]:</span> model = Sequential()</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Embedding(len(vocabint), 300, input_length=100))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(64, return_sequences=True,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(16, return_sequences=True,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(32, return_sequences=False,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(len(languages), activation='softmax'))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">154</span><span style=" color:#00ff00;">]:</span> model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> print(model.summary())</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Layer (type)                 Output Shape              Param #   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">embedding_16 (Embedding)     (None, 100, 300)          8830200   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_39 (LSTM)               (None, 100, 64)           93440     </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_40 (LSTM)               (None, 100, 16)           5184      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_41 (LSTM)               (None, 32)                6272      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_13 (Dense)             (None, 5)                 165       </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Total params: 8,935,261</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Trainable params: 8,935,261</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Non-trainable params: 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">None</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">155</span><span style=" color:#00ff00;">]:</span> hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.2 ,epochs=5, batch_size=128)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Train on 3000 samples, validate on 750 samples</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 1/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 31s 10ms/step - loss: 0.4604 - acc: 0.8001 - val_loss: 0.3517 - val_acc: 0.8155</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 2/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 28s 9ms/step - loss: 0.2176 - acc: 0.9249 - val_loss: 0.1166 - val_acc: 0.9909</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 3/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 29s 10ms/step - loss: 0.0650 - acc: 0.9975 - val_loss: 0.0406 - val_acc: 0.9976</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 4/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 17s 6ms/step - loss: 0.0235 - acc: 0.9995 - val_loss: 0.0313 - val_acc: 0.9941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 5/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 25s 8ms/step - loss: 0.0135 - acc: 0.9994 - val_loss: 0.0244 - val_acc: 0.9952</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">156</span><span style=" color:#00ff00;">]:</span> model = Sequential()</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Embedding(len(vocabint), 300, input_length=100))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(64, return_sequences=True,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(len(languages), activation='softmax'))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">157</span><span style=" color:#00ff00;">]:</span> del model</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">158</span><span style=" color:#00ff00;">]:</span> model = Sequential()</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Embedding(len(vocabint), 300, input_length=100))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(64, return_sequences=True,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32),activation='tanh')</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32),activation='tanh')</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(len(languages), activation='softmax'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Traceback <span style=" color:#00ffff;">(most recent call last)</span>:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ffff;">  File </span><span style=" color:#00ff00;">&quot;&lt;ipython-input-158-2ce91d981cb7&gt;&quot;</span><span style=" color:#00ffff;">, line </span><span style=" color:#00ff00;">4</span><span style=" color:#00ffff;">, in </span><span style=" color:#ff00ff;">&lt;module&gt;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ffff00;">    model.add(Dense(32),activation='tanh')</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ff0000;">TypeError:</span> add() got an unexpected keyword argument 'activation'</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">159</span><span style=" color:#00ff00;">]:</span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">159</span><span style=" color:#00ff00;">]:</span> model = Sequential()</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Embedding(len(vocabint), 300, input_length=100))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(64, return_sequences=True,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(len(languages), activation='softmax'))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">160</span><span style=" color:#00ff00;">]:</span> model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> print(model.summary())</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Layer (type)                 Output Shape              Param #   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">embedding_19 (Embedding)     (None, 100, 300)          8830200   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_44 (LSTM)               (None, 100, 64)           93440     </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_17 (Dense)             (None, 100, 32)           2080      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_18 (Dense)             (None, 100, 32)           1056      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_19 (Dense)             (None, 100, 5)            165       </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Total params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Trainable params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Non-trainable params: 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">None</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">161</span><span style=" color:#00ff00;">]:</span> hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.2 ,epochs=5, batch_size=128)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Traceback <span style=" color:#00ffff;">(most recent call last)</span>:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;&lt;ipython-input-161-548fa72433d1&gt;&quot;</span>, line <span style=" color:#006400;">1</span>, in <span style=" color:#9400d3;">&lt;module&gt;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.2 ,epochs=5, batch_size=128)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\engine\training.py&quot;</span>, line <span style=" color:#006400;">952</span>, in <span style=" color:#9400d3;">fit</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    batch_size=batch_size)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\engine\training.py&quot;</span>, line <span style=" color:#006400;">789</span>, in <span style=" color:#9400d3;">_standardize_user_data</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    exception_prefix='target')</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ffff;">  File </span><span style=" color:#00ff00;">&quot;D:\AnacondaWS\lib\site-packages\keras\engine\training_utils.py&quot;</span><span style=" color:#00ffff;">, line </span><span style=" color:#00ff00;">128</span><span style=" color:#00ffff;">, in </span><span style=" color:#ff00ff;">standardize_input_data</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ffff00;">    'with shape ' + str(data_shape))</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ff0000;">ValueError:</span> Error when checking target: expected dense_19 to have 3 dimensions, but got array with shape (3750, 5)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">162</span><span style=" color:#00ff00;">]:</span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">162</span><span style=" color:#00ff00;">]:</span> del model</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">163</span><span style=" color:#00ff00;">]:</span> model = Sequential()</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Embedding(len(vocabint), 300, input_length=100))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(64, return_sequences=False,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(len(languages), activation='softmax'))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">164</span><span style=" color:#00ff00;">]:</span> model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> print(model.summary())</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Layer (type)                 Output Shape              Param #   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">embedding_20 (Embedding)     (None, 100, 300)          8830200   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_45 (LSTM)               (None, 64)                93440     </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_20 (Dense)             (None, 32)                2080      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_21 (Dense)             (None, 32)                1056      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_22 (Dense)             (None, 5)                 165       </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Total params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Trainable params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Non-trainable params: 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">None</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">165</span><span style=" color:#00ff00;">]:</span> hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.2 ,epochs=5, batch_size=128)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Train on 3000 samples, validate on 750 samples</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 1/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 16s 5ms/step - loss: 0.4421 - acc: 0.8059 - val_loss: 0.2621 - val_acc: 0.9120</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 2/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 11s 4ms/step - loss: 0.0962 - acc: 0.9903 - val_loss: 0.0325 - val_acc: 0.9965</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 3/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 8s 3ms/step - loss: 0.0134 - acc: 0.9993 - val_loss: 0.0214 - val_acc: 0.9965</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 4/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 10s 3ms/step - loss: 0.0061 - acc: 0.9999 - val_loss: 0.0259 - val_acc: 0.9936</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 5/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1664/3000 [===============&gt;..............] - ETA: 3s - loss: 0.0048 - acc: 0.9998 Traceback <span style=" color:#00ffff;">(most recent call last)</span>:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;&lt;ipython-input-165-548fa72433d1&gt;&quot;</span>, line <span style=" color:#006400;">1</span>, in <span style=" color:#9400d3;">&lt;module&gt;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.2 ,epochs=5, batch_size=128)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\engine\training.py&quot;</span>, line <span style=" color:#006400;">1039</span>, in <span style=" color:#9400d3;">fit</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    validation_steps=validation_steps)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\engine\training_arrays.py&quot;</span>, line <span style=" color:#006400;">199</span>, in <span style=" color:#9400d3;">fit_loop</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    outs = f(ins_batch)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\backend\tensorflow_backend.py&quot;</span>, line <span style=" color:#006400;">2715</span>, in <span style=" color:#9400d3;">__call__</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    return self._call(inputs)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\keras\backend\tensorflow_backend.py&quot;</span>, line <span style=" color:#006400;">2675</span>, in <span style=" color:#9400d3;">_call</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    fetched = self._callable_fn(*array_vals)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ffff;">  File </span><span style=" color:#00ff00;">&quot;D:\AnacondaWS\lib\site-packages\tensorflow_core\python\client\session.py&quot;</span><span style=" color:#00ffff;">, line </span><span style=" color:#00ff00;">1472</span><span style=" color:#00ffff;">, in </span><span style=" color:#ff00ff;">__call__</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ffff00;">    run_metadata_ptr)</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ff0000;">KeyboardInterrupt</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">166</span><span style=" color:#00ff00;">]:</span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">166</span><span style=" color:#00ff00;">]:</span> del model</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">167</span><span style=" color:#00ff00;">]:</span> model = Sequential()</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Embedding(len(vocabint), 300, input_length=100))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(64, return_sequences=False,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='sigmoid'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='sigmoid'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(len(languages), activation='softmax'))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">168</span><span style=" color:#00ff00;">]:</span> model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> print(model.summary())</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Layer (type)                 Output Shape              Param #   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">embedding_21 (Embedding)     (None, 100, 300)          8830200   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_46 (LSTM)               (None, 64)                93440     </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_23 (Dense)             (None, 32)                2080      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_24 (Dense)             (None, 32)                1056      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_25 (Dense)             (None, 5)                 165       </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Total params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Trainable params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Non-trainable params: 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">None</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">169</span><span style=" color:#00ff00;">]:</span> hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.2 ,epochs=5, batch_size=128)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Train on 3000 samples, validate on 750 samples</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 1/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 17s 6ms/step - loss: 0.5064 - acc: 0.8000 - val_loss: 0.4914 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 2/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 10s 3ms/step - loss: 0.4671 - acc: 0.8000 - val_loss: 0.4399 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 3/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 9s 3ms/step - loss: 0.4135 - acc: 0.8000 - val_loss: 0.3910 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 4/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 8s 3ms/step - loss: 0.3720 - acc: 0.8000 - val_loss: 0.3580 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 5/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 8s 3ms/step - loss: 0.3393 - acc: 0.8000 - val_loss: 0.3239 - val_acc: 0.8000</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">170</span><span style=" color:#00ff00;">]:</span> del model</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">171</span><span style=" color:#00ff00;">]:</span> model = Sequential()</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Embedding(len(vocabint), 300, input_length=100))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(64, return_sequences=False,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='relu'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='sigmoid'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(len(languages), activation='softmax'))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">172</span><span style=" color:#00ff00;">]:</span> model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> print(model.summary())</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Layer (type)                 Output Shape              Param #   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">embedding_22 (Embedding)     (None, 100, 300)          8830200   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_47 (LSTM)               (None, 64)                93440     </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_26 (Dense)             (None, 32)                2080      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_27 (Dense)             (None, 32)                1056      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_28 (Dense)             (None, 5)                 165       </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Total params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Trainable params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Non-trainable params: 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">None</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">173</span><span style=" color:#00ff00;">]:</span> hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.2 ,epochs=5, batch_size=128)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Train on 3000 samples, validate on 750 samples</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 1/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 17s 6ms/step - loss: 0.5126 - acc: 0.8000 - val_loss: 0.4520 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 2/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 10s 3ms/step - loss: 0.4069 - acc: 0.8000 - val_loss: 0.3734 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 3/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 10s 3ms/step - loss: 0.3128 - acc: 0.8353 - val_loss: 0.2610 - val_acc: 0.9011</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 4/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 9s 3ms/step - loss: 0.1858 - acc: 0.9674 - val_loss: 0.1442 - val_acc: 0.9904</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 5/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3000/3000 [==============================] - 6s 2ms/step - loss: 0.0977 - acc: 0.9989 - val_loss: 0.0899 - val_acc: 0.9917</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">174</span><span style=" color:#00ff00;">]:</span> import matplotlib.pyplot as plt</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">175</span><span style=" color:#00ff00;">]:</span> plt.plot(history.history['acc'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Traceback <span style=" color:#00ffff;">(most recent call last)</span>:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ffff;">  File </span><span style=" color:#00ff00;">&quot;&lt;ipython-input-175-73ed1753ad21&gt;&quot;</span><span style=" color:#00ffff;">, line </span><span style=" color:#00ff00;">1</span><span style=" color:#00ffff;">, in </span><span style=" color:#ff00ff;">&lt;module&gt;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ffff00;">    plt.plot(history.history['acc'])</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ff0000;">NameError:</span> name 'history' is not defined</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">176</span><span style=" color:#00ff00;">]:</span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">176</span><span style=" color:#00ff00;">]:</span> plt.plot(hist.history['acc'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ff0000;">Out[</span><span style=" font-weight:600; color:#ff0000;">176</span><span style=" color:#ff0000;">]:</span> [&lt;matplotlib.lines.Line2D at 0x20a482f56a0&gt;]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="data:image/png;base64,
+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
+" /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">177</span><span style=" color:#00ff00;">]:</span> del model</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">178</span><span style=" color:#00ff00;">]:</span> model = Sequential()</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Embedding(len(vocabint), 300, input_length=100))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(64, return_sequences=False,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='relu'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='sigmoid'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(len(languages), activation='softmax'))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">179</span><span style=" color:#00ff00;">]:</span> model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> print(model.summary())</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Layer (type)                 Output Shape              Param #   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">embedding_23 (Embedding)     (None, 100, 300)          8830200   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_48 (LSTM)               (None, 64)                93440     </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_29 (Dense)             (None, 32)                2080      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_30 (Dense)             (None, 32)                1056      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_31 (Dense)             (None, 5)                 165       </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Total params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Trainable params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Non-trainable params: 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">None</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">180</span><span style=" color:#00ff00;">]:</span> hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.3 ,epochs=5, batch_size=128)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Train on 2625 samples, validate on 1125 samples</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 1/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2625/2625 [==============================] - 17s 6ms/step - loss: 0.5436 - acc: 0.8000 - val_loss: 0.5085 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 2/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2625/2625 [==============================] - 9s 3ms/step - loss: 0.4578 - acc: 0.8000 - val_loss: 0.3890 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 3/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2625/2625 [==============================] - 8s 3ms/step - loss: 0.3238 - acc: 0.8443 - val_loss: 0.2474 - val_acc: 0.8796</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 4/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2625/2625 [==============================] - 10s 4ms/step - loss: 0.1758 - acc: 0.9639 - val_loss: 0.1316 - val_acc: 0.9941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 5/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2625/2625 [==============================] - 9s 3ms/step - loss: 0.0979 - acc: 0.9990 - val_loss: 0.0874 - val_acc: 0.9948</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">181</span><span style=" color:#00ff00;">]:</span> plt.plot(hist.history['acc'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ff0000;">Out[</span><span style=" font-weight:600; color:#ff0000;">181</span><span style=" color:#ff0000;">]:</span> [&lt;matplotlib.lines.Line2D at 0x20a51be8fd0&gt;]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="data:image/png;base64,
+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
+
+" /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">182</span><span style=" color:#00ff00;">]:</span> del model</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">183</span><span style=" color:#00ff00;">]:</span> model = Sequential()</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Embedding(len(vocabint), 300, input_length=100))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(LSTM(64, return_sequences=False,activation='tanh'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='relu'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dropout(0.5))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(32,activation='sigmoid'))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> model.add(Dense(len(languages), activation='softmax'))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">184</span><span style=" color:#00ff00;">]:</span> model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">     ...:</span> print(model.summary())</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Layer (type)                 Output Shape              Param #   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">embedding_24 (Embedding)     (None, 100, 300)          8830200   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lstm_49 (LSTM)               (None, 64)                93440     </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_32 (Dense)             (None, 32)                2080      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dropout_30 (Dropout)         (None, 32)                0         </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_33 (Dense)             (None, 32)                1056      </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dense_34 (Dense)             (None, 5)                 165       </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=================================================================</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Total params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Trainable params: 8,926,941</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Non-trainable params: 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">_________________________________________________________________</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">None</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">185</span><span style=" color:#00ff00;">]:</span> hist = model.fit(X_train_pad, Y_train_encoded, validation_split=0.3 ,epochs=5, batch_size=128)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Train on 2625 samples, validate on 1125 samples</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 1/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2625/2625 [==============================] - 21s 8ms/step - loss: 0.5264 - acc: 0.8000 - val_loss: 0.4909 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 2/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2625/2625 [==============================] - 12s 4ms/step - loss: 0.4563 - acc: 0.8000 - val_loss: 0.3884 - val_acc: 0.8000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 3/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2625/2625 [==============================] - 10s 4ms/step - loss: 0.3501 - acc: 0.8240 - val_loss: 0.2709 - val_acc: 0.8676</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 4/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2625/2625 [==============================] - 12s 4ms/step - loss: 0.2541 - acc: 0.8969 - val_loss: 0.1655 - val_acc: 0.9673</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Epoch 5/5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2625/2625 [==============================] - 16s 6ms/step - loss: 0.1694 - acc: 0.9627 - val_loss: 0.0933 - val_acc: 0.9957</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">186</span><span style=" color:#00ff00;">]:</span> plt.plot(hist.history['acc'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ff0000;">Out[</span><span style=" font-weight:600; color:#ff0000;">186</span><span style=" color:#ff0000;">]:</span> [&lt;matplotlib.lines.Line2D at 0x20b38c2a5f8&gt;]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="data:image/png;base64,
+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
+f3/8/f2ZPXs2sbGxaLVaYmJiyMjI6PWTEkJ0T3u7wpNvHObgqTr+khJLTLAs
+o/REGqWrm/AqM5vNWCwWtWMI4fH+e+cxVn98nF/fHcbPZIVNn3al3pR3W4To
+p7bur2T1x8d5ID6YjIl6teOIXiRFL0Q/tPvLM/zm7c+5fbw/f7zXKMsoPZwU
+vRD9TFl1Iws2HeDmgKGsTomVZZT9gHyFhehHahovMm/9fgYO8OaVeXH4DpRl
+lP2BFL0Q/cQFu4P0DRbONF1k3cNmxo4YpHYkcZ3IxxQL0Q+0tys8sfUQR6x1
+rJkzgSjdCLUjietIruiF6AeW7zzGjqKv+O20cKYaR6sdR1xnUvRCeLjX9p3i
+pU9O8NBt32H+D0LUjiNUIEUvhAf79IsaluQWcUdoAE/NiJBllP2UFL0QHqr0
+q0YyNx9k/KihrHowFq0so+y35CsvhAf6urGFtPX7GXyDN9nz4hh6g6y76M/k
+qy+Eh7lgd5D+qoXaZjtbf/ZdxgyXZZT9nVzRC+FBHO0Kj79eSJGtnpUPxHDr
+2OFqRxJuQIpeCA+ybEcJO49Ws2R6BJPDb1I7jnATUvRCeIiNe0/y8t/LSf3e
+OOZ9X5ZRin/pVtHn5eURGhqKwWBg2bJllz1fX1/PjBkziI6Oxmg0kp2d3fFc
+XV0ds2fPJiwsjPDwcPbs2eO69EIIAD4u/ZqncouYHDaKJdMj1I4j3IzTN2Md
+DgeZmZl88MEH6HQ64uLiSExMJCLiX99Mq1evJiIignfffZeamhpCQ0NJSUnB
+x8eHRYsWcdddd/Hmm29it9tpbm7u1RMSor8prmpg4eaDhI/x5YUHYvD2krXy
+ojOnV/QFBQUYDAb0ej0+Pj4kJyeTm5vbaYxGo6GxsRFFUWhqasLPzw+tVktD
+QwOffvop8+fPB8DHx4cRI+QzNoRwleqGFua/up9hAwew7uE4hsgyStEFp0Vv
+s9kICgrqeKzT6bDZbJ3GLFy4kJKSEgIDA4mMjGTFihV4eXlx4sQJAgICmDdv
+HjExMaSnp3P+/PkuXycrKwuz2YzZbKampuYaT0sIz3f+Yhtp6/fTcKGVV1Lj
+GD18oNqRhJtyWvRdbSn7zV+j3rlzJyaTiaqqKg4dOsTChQtpaGigra2NgwcP
+8uijj1JYWMiQIUO6vMcPkJGRgcViwWKxEBAQcJWnI0T/4GhXWJRTSMnpBlY9
+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
+Dn0AAAAASUVORK5CYII=
+" /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">187</span><span style=" color:#00ff00;">]:</span> plt.figure(hist.history['acc'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Traceback <span style=" color:#00ffff;">(most recent call last)</span>:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;&lt;ipython-input-187-552190f9fe79&gt;&quot;</span>, line <span style=" color:#006400;">1</span>, in <span style=" color:#9400d3;">&lt;module&gt;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    plt.figure(hist.history['acc'])</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ffff;">  File </span><span style=" color:#00ff00;">&quot;D:\AnacondaWS\lib\site-packages\matplotlib\pyplot.py&quot;</span><span style=" color:#00ffff;">, line </span><span style=" color:#00ff00;">520</span><span style=" color:#00ffff;">, in </span><span style=" color:#ff00ff;">figure</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ffff00;">    num = int(num)  # crude validation of num argument</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ff0000;">TypeError:</span> int() argument must be a string, a bytes-like object or a number, not 'list'</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">188</span><span style=" color:#00ff00;">]:</span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">188</span><span style=" color:#00ff00;">]:</span> plt.subplot(hist.history['acc'])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Traceback <span style=" color:#00ffff;">(most recent call last)</span>:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;&lt;ipython-input-188-f512bf29e188&gt;&quot;</span>, line <span style=" color:#006400;">1</span>, in <span style=" color:#9400d3;">&lt;module&gt;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    plt.subplot(hist.history['acc'])</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\matplotlib\pyplot.py&quot;</span>, line <span style=" color:#006400;">1069</span>, in <span style=" color:#9400d3;">subplot</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    a = fig.add_subplot(*args, **kwargs)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  File <span style=" color:#006400;">&quot;D:\AnacondaWS\lib\site-packages\matplotlib\figure.py&quot;</span>, line <span style=" color:#006400;">1414</span>, in <span style=" color:#9400d3;">add_subplot</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    a = subplot_class_factory(projection_class)(self, *args, **kwargs)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ffff;">  File </span><span style=" color:#00ff00;">&quot;D:\AnacondaWS\lib\site-packages\matplotlib\axes\_subplots.py&quot;</span><span style=" color:#00ffff;">, line </span><span style=" color:#00ff00;">39</span><span style=" color:#00ffff;">, in </span><span style=" color:#ff00ff;">__init__</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ffff00;">    s = str(int(args[0]))</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#ff0000;">TypeError:</span> int() argument must be a string, a bytes-like object or a number, not 'list'</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;Figure size 432x288 with 0 Axes&gt;</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">189</span><span style=" color:#00ff00;">]:</span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">189</span><span style=" color:#00ff00;">]:</span> plt.y_label = [0,1]</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">190</span><span style=" color:#00ff00;">]:</span> plt.show()</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">191</span><span style=" color:#00ff00;">]:</span> </p></body></html>

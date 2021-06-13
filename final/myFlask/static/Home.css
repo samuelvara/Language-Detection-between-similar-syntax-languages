@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Dosis');
+*{
+margin:0px;
+padding:0px;
+}
+
+body {
+font-weight: bold;
+}
+.nav_bar{
+background-color:#A576FF;
+padding:20px;
+}
+.nav_bar ul {
+list-style-type:none;
+}
+.nav_bar ul li{
+display:inline;
+width:100%;
+padding-right:50px;
+list-decoration:none;
+font-weight: bold;
+font-size: 150%;
+font-family:'Dosis';
+}
+.nav_bar ul li a{
+text-decoration: none;
+display: block;
+color: #A576FF;
+padding: 8px 16px;
+display:inline;
+}
+li a:hover{
+background-color:#33BAFF;
+color: 33BAFF;
+transition: 0.4s;
+}
+h1{
+font-size: 100px;
+text-align:center;
+color:#A576FF;
+font-family: Times New Roman;
+}
+h1:hover
+{
+color:#33BAFF;
+background-color: #A576FF;
+font-weight: lighter;
+font-size: 110px;
+}
+.group{
+margin-top: 7%;
+margin-left:35%;
+margin-right: 35%;
+padding:30px;
+border: 3px solid #33BAFF;
+border-radius:70px;
+background-color:#33BAFF;
+font-family:'Dosis';
+font-weight: bold;
+}
+.group:hover
+{
+color:#A576FF;
+font-weight: bolder;
+font-size: 60px;
+}
+.group h2{
+font-size: 50px;
+text-align:center;
+}
+
+.content{
+padding:20px;
+padding-left:30px;
+}
+h3{
+font-size: 29px;
+text-align:center
+}
+.content ul{
+padding-top:10px;
+}
+.content ul li{
+font-size: 20px;
+list-style-type:square;
+padding-top:3px;
+}

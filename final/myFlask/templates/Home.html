@@ -1,0 +1,38 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for( '.static', filename='Home.css' ) }}" >
+{% endblock %}
+
+{% block content %}
+	<div class ="nav_bar">
+        <ul>
+            <li><a href="{{ url_for( 'Signup' )}}"> Predict</a></li>
+            <!-- <li><a href="{{ url_for( 'Signup' )}}"> Prediction</a></li> -->
+        </ul>
+    </div>
+    <div class="heading">
+        <h1>LangDom</h1>
+    </div>
+
+    <div class="group">
+        <div class="content">
+            <h3>GAIP Group 2</h3>
+            <ul>
+                <li>Sanket S</li>
+                <li>Samuel S</li>
+                <li>Senjuti Ghosh</li>
+                <li>Camilla Garg</li>
+                <li>Phanindra Dodda</li>
+                <li>Udbhav Sampath</li>
+                <li>Jatin Rajani</li>
+            </ul>
+        </div>
+    </div>
+	
+{% endblock %}
